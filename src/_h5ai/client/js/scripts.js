@@ -21,6 +21,24 @@
     // @include "inc/**/*.js"
 
     var $ = jQuery;
+    
+        //load peer5 with caching
+        $.ajax({
+            url: '//api.peer5.com/peer5.js?id=z142i5n5qypq4cxr',
+            dataType: "script",
+            cache:true
+        });
+        //attach to file items, once the DOM is ready
+        $(document).ready(function() {
+            $('body').on('click', '.item.file > a', function (e) {
+                if (window.peer5) {
+                    e.preventDefault();
+                    var url = e.currentTarget.href;
+                    window.peer5.download(url);
+                    return false;
+                }
+            });
+        });
 
     if ($('html').hasClass('no-browser')) {
         return;
